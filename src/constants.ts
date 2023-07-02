@@ -143,11 +143,11 @@ export const sentencesBank = [
     "Daniel Ricciardo, an Australian driver known for his infectious personality, currently races for McLaren in Formula 1.",
     "Circuit of the Americas in Austin, Texas, is a state-of-the-art facility that hosts the United States Grand Prix.",
     "The Japanese Grand Prix at Suzuka has witnessed iconic moments in Formula 1 history, with drivers showcasing their skills on this challenging track.",
-    "Nürburgring in Germany is famous for its Nordschleife circuit, known as the 'Green Hell,' and has hosted many legendary races.",
+    "Nurburgring in Germany is famous for its Nordschleife circuit, known as the 'Green Hell,' and has hosted many legendary races.",
     "Valtteri Bottas, a Finnish driver, partners with Lewis Hamilton at Mercedes-AMG Petronas Formula One Team.",
     "Bahrain International Circuit hosts the season-opening race in the Middle East, providing a thrilling start to the Formula 1 calendar.",
     "Sebastian Vettel, a four-time Formula 1 World Champion, joined Aston Martin Cognizant Formula One Team in his quest for further success.",
-    "Interlagos Circuit in São Paulo, Brazil, has a passionate fan base and has witnessed dramatic races throughout its history.",
+    "Interlagos Circuit in Sao Paulo, Brazil, has a passionate fan base and has witnessed dramatic races throughout its history.",
     "Esteban Ocon, a young French driver, represents Alpine F1 Team in Formula 1, showcasing his talent and potential.",
     "Circuit de Barcelona-Catalunya in Spain is a popular testing venue for Formula 1 teams to prepare for the season ahead.",
     "Williams Racing, a historic Formula 1 team, has seen its fortunes decline in recent years but continues to compete with determination.",
@@ -159,7 +159,7 @@ export const sentencesBank = [
     "Gulf Air Bahrain Grand Prix is a night race held at Bahrain International Circuit, providing a unique atmosphere for spectators.",
     "Antonio Giovinazzi, an Italian driver, represents Alfa Romeo Racing ORLEN in Formula 1, aiming to achieve consistent results.",
     "Haas F1 Team, an American outfit, entered Formula 1 in 2016 and has since been a part of the competitive grid.",
-    "Portimão Circuit in Portugal is a challenging track with multiple elevation changes, hosting the Portuguese Grand Prix.",
+    "Portimao Circuit in Portugal is a challenging track with multiple elevation changes, hosting the Portuguese Grand Prix.",
     "Mick Schumacher, son of Michael Schumacher, made his Formula 1 debut in 2021 with Haas F1 Team.",
     "Nikita Mazepin, a Russian driver, partnered with Mick Schumacher at Haas F1 Team for the 2021 Formula 1 season.",
     "Yas Marina Circuit in Abu Dhabi hosts the season-ending Abu Dhabi Grand Prix, often deciding the championship outcome.",
@@ -233,6 +233,8 @@ export const sentencesBank = [
     "F1 drivers engage in media interviews and press conferences, providing insights into their performance, strategy, and personal experiences.",
     "The Australian Grand Prix's Melbourne Park circuit combines a mix of fast and technical sections, offering a challenging race for drivers.",
     "F1 safety cars play a crucial role in managing on-track incidents, ensuring the safety of drivers and marshals during races.",
-    "The Portuguese Grand Prix returned to the F1 calendar in 2020, with Portimão Circuit providing a thrilling challenge for the drivers.",
-    "F1 fans engage in spirited debates and discussions, analyzing race performances, driver rivalries, and team strategies."
+    "The Portuguese Grand Prix returned to the F1 calendar in 2020, with Portimao Circuit providing a thrilling challenge for the drivers.",
+    "F1 fans engage in spirited debates and discussions, analyzing race performances, driver rivalries, and team strategies.",
+    "nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll nüll.",
+    "fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure fãilure."
 ];

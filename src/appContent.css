@@ -29,6 +29,7 @@
     display: inline-flex;
     white-space: pre;
     padding-bottom: 5px;
+    user-select: none;
 }
 
 #interactiveElements {
