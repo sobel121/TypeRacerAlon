@@ -42,6 +42,7 @@ export default function AppContent() {
         setCurrentWordDone(" ");
         setDone([]);
         setCurrentTargetWordIndex(0);
+        
         if(textArea.current) {
             textArea.current.hidden = false
             textArea.current.value = ""; 
