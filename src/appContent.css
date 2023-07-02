@@ -1,0 +1,43 @@
+#doneWords {
+    color: #5d7b05;
+    font-size: 15px;
+    margin-right: 1ch;
+}
+
+#doneLettersInCurrentWord {
+    color: #5d7b05;
+    font-size: 15px;
+}
+
+#todoWords {
+    font-size :15px;
+    margin-left: 1ch;
+}
+
+#todoLettersInCurrentWord {
+    font-size :15px;
+}
+
+#restartGameButton {
+    margin-left: 5px;
+    width: 200px;
+    height: 36px;
+    font-size: larger;
+}
+
+#targetSentence {
+    display: inline-flex;
+    white-space: pre;
+    padding-bottom: 5px;
+}
+
+#interactiveElements {
+    display: inline-flex;
+    margin-top: 10px;
+}
+
+#textInputArea {
+    width: 800px;
+    height: 32px;
+    font-size: 24px;
+}
