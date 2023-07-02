@@ -5,6 +5,7 @@ require('./appContent.css')
 
 export default function AppContent() {
     const sentenceWords = useRef<string[]>(getRandomSentenceWords());
+    const textArea = useRef<HTMLInputElement>(null);
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
     const [todo, setTodo] = useState<string[]>(sentenceWords.current.slice(1));
@@ -12,12 +13,14 @@ export default function AppContent() {
     const [currentWordTodo, setCurrentWordTodo] = useState(sentenceWords.current[0]);
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (sentenceWords.current[currentTargetWordIndex].includes(event.currentTarget.value)) {        
-            setCurrentWordDone(event.currentTarget.value);
-            setCurrentWordTodo(sentenceWords.current[currentTargetWordIndex].slice(event.currentTarget.value.length));
+        const currentText = event.currentTarget.value;
+
+        if (sentenceWords.current[currentTargetWordIndex].includes(currentText)) {        
+            setCurrentWordDone(currentText);
+            setCurrentWordTodo(sentenceWords.current[currentTargetWordIndex].slice(currentText.length));
         }
         
-        if (isWordComplete(event.currentTarget.value, sentenceWords.current, currentTargetWordIndex)) {
+        if (isWordComplete(currentText, sentenceWords.current, currentTargetWordIndex)) {
             setDone((doneWords) => doneWords.concat(sentenceWords.current[currentTargetWordIndex]));
             setCurrentWordTodo(todo[0]);
             setTodo((todoWords) => todoWords.slice(1));
@@ -29,8 +32,7 @@ export default function AppContent() {
             if (sentenceWords.current.length === currentTargetWordIndex + 1) {
                 event.currentTarget.hidden = true;
             }
-        }
-        
+        }       
     };
 
     const restartGame = () => {
@@ -40,18 +42,18 @@ export default function AppContent() {
         setCurrentWordDone(" ");
         setDone([]);
         setCurrentTargetWordIndex(0);
-        const typeTextArea = document.getElementById("textInputArea")! as HTMLInputElement;
-        
-        typeTextArea.hidden = false;
-        typeTextArea.value = "";
-        typeTextArea.focus();
+        if(textArea.current) {
+            textArea.current.hidden = false
+            textArea.current.value = ""; 
+            textArea.current.focus();
+        }
     };
 
     return (
         <>
             <TargetSentence todo={todo} done={done} currentWordDone={currentWordDone} currentWordTodo={currentWordTodo} />
             <span id="intearctiveElements">
-                <input type="textArea" onChange={handleInput} id="textInputArea"></input>
+                <input type="textArea" onChange={handleInput} ref={textArea} id="textInputArea"></input>
                 <button onClick={restartGame} id="restartGameButton">restart game</button>
             </span>
         </>
