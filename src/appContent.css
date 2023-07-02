@@ -28,6 +28,7 @@
 #targetSentence {
     display: inline-flex;
     white-space: pre;
+    text-align: left;
     padding-bottom: 5px;
     user-select: none;
 }
