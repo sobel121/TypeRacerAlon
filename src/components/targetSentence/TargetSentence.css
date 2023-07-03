@@ -1,0 +1,18 @@
+#doneWords {
+    color: #5d7b05;
+}
+
+#doneLettersInCurrentWord {
+    color: #5d7b05;
+}
+
+.targetSentencePart {
+    font-size: 20px;
+}
+
+#targetSentence {
+    padding-bottom: 5px;
+    user-select: none;
+    text-align: left;
+    margin-left: 10px;
+}

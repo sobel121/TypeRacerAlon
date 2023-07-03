@@ -1,11 +1,8 @@
 import React, { useRef, useState } from "react";
-import {
-    getRandomSentenceWords,
-    isWordComplete,
-    getCurrentWordTodoCharacters,
-    getTodoWords,
-} from "./utils";
-import TargetSentence from "./TargetSentence";
+import {getRandomSentenceWords, getCurrentWordTodoCharacters, getTodoWords} from "./utils";
+import TargetSentence from "../targetSentence";
+import TypeInput from "../typeInput";
+import { restartGameText } from "./strings";
 import "./appContent.css";
 
 export default function AppContent() {
@@ -14,28 +11,6 @@ export default function AppContent() {
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
     const [currentWordDoneCharacters, setCurrentWordDoneCharacters] = useState("");
-
-    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const currentText = event.currentTarget.value;
-
-        if (sentenceWords.current[currentTargetWordIndex].includes(currentText)) {
-            setCurrentWordDoneCharacters(currentText);
-        }
-
-        if (isWordComplete(currentText,sentenceWords.current,currentTargetWordIndex)) {
-            setDone((doneWords) =>
-                doneWords.concat(sentenceWords.current[currentTargetWordIndex])
-            );
-
-            setCurrentTargetWordIndex((index) => index + 1);
-            event.currentTarget.value = "";
-            setCurrentWordDoneCharacters("");
-
-            if (sentenceWords.current.length === currentTargetWordIndex + 1) {
-                event.currentTarget.disabled = true;
-            }
-        }
-    };
 
     const restartGame = () => {
         sentenceWords.current = getRandomSentenceWords();
@@ -53,8 +28,8 @@ export default function AppContent() {
     return (
         <>
             <TargetSentence
-                todo={getTodoWords(done.length + 1, sentenceWords.current)}
                 done={done}
+                todo={getTodoWords(done.length + 1, sentenceWords.current)}
                 currentWordDone={currentWordDoneCharacters}
                 currentWordTodo={getCurrentWordTodoCharacters(
                     currentWordDoneCharacters.length,
@@ -62,8 +37,15 @@ export default function AppContent() {
                 )}
             />
             <span id="intearctiveElements">
-                <input type="textArea" onChange={handleInput} ref={textArea} id="textInputArea"></input>
-                <button onClick={restartGame} id="restartGameButton">restart game</button>
+                <TypeInput 
+                    sentenceWords={sentenceWords.current} 
+                    currentTargetWordIndex={currentTargetWordIndex} 
+                    setDone={setDone} 
+                    setCurrentWordDoneCharacters={setCurrentWordDoneCharacters} 
+                    setCurrentTargetWordIndex={setCurrentTargetWordIndex}
+                    ref={textArea}
+                />
+                <button onClick={restartGame} id="restartGameButton">{restartGameText}</button>
             </span>
         </>
     );

@@ -1,0 +1,17 @@
+#restartGameButton {
+    margin-left: 5px;
+    width: 200px;
+    height: 36px;
+    font-size: larger;
+}
+
+#interactiveElements {
+    display: inline-flex;
+    margin-top: 10px;
+}
+
+#textInputArea {
+    width: 800px;
+    height: 32px;
+    font-size: 24px;
+}

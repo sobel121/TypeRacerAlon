@@ -1,19 +1,7 @@
-import { sentencesBank } from "./constants";
+import { sentencesBank } from "./sentenceBank";
 
 export const getRandomSentenceWords = () =>
     sentencesBank[Math.floor(Math.random() * sentencesBank.length)].split(" ");
-
-export const isWordComplete = (
-    value: string,
-    sentenceWords: string[],
-    currentTargetWordIndex: number
-) => {
-    return (
-        value === sentenceWords[currentTargetWordIndex] + " " ||
-        (value === sentenceWords[currentTargetWordIndex] &&
-            sentenceWords.length === currentTargetWordIndex + 1)
-    );
-};
 
 export const getCurrentWordTodoCharacters = (
     doneCharactersLength: number,

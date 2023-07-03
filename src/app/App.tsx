@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
-import AppContent from "./appContent";
+
+import { title } from "./strings";
+import AppContent from "../components/appContent";
 
 export default function App() {
     return (
         <div id="appContainer">
-            <h1>type racer</h1>
+            <h1>{title}</h1>
             <AppContent />
         </div>
     );
