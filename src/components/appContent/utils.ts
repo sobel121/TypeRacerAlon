@@ -1,4 +1,4 @@
-import { sentencesBank } from "./sentenceBank";
+import { sentencesBank } from "../../assets/sentenceBank";
 
 export const getRandomSentenceWords = () =>
     sentencesBank[Math.floor(Math.random() * sentencesBank.length)].split(" ");
