@@ -14,3 +14,13 @@ export const isWordComplete = (
             sentenceWords.length === currentTargetWordIndex + 1)
     );
 };
+
+export const getCurrentWordTodoCharacters = (
+    doneCharactersLength: number,
+    currentWord: string
+) => (currentWord ? currentWord.substring(doneCharactersLength) : "");
+
+export const getTodoWords = (
+    doneWordsAmount: number,
+    sentenceWords: string[]
+) => sentenceWords.slice(doneWordsAmount);
