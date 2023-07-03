@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { getRandomSentenceWords, isWordComplete } from "./utils";
 import TargetSentence from "./TargetSentence";
-require('./appContent.css')
+import './appContent.css';
 
 export default function AppContent() {
     const sentenceWords = useRef<string[]>(getRandomSentenceWords());

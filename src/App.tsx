@@ -1,5 +1,5 @@
 import React from "react";
-require("./App.css");
+import "./App.css";
 import AppContent from "./appContent";
 
 export default function App() {
