@@ -15,7 +15,7 @@ export default function Timer({resetTime, wordsWritten, totalSeconds, setTotalSe
     const wordsPerMinuteElement = useRef<HTMLLabelElement>(null);
     const currentMinutes = padOneDigitNumber(Math.floor(totalSeconds / 60));
     const currentSeconds = padOneDigitNumber(totalSeconds % 60);
-    const wpm = "" + Math.floor(wordsWritten * 60 / totalSeconds);
+    const wpm = "" + (Math.floor(wordsWritten * 60 / totalSeconds) ? Math.floor(wordsWritten * 60 / totalSeconds) : 0);
     let timer: NodeJS.Timer;
     
     const setTime = () => {
