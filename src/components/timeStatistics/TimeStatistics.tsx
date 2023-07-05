@@ -15,22 +15,19 @@ export default function Timer({resetTime, wordsWritten}: TimerProps) {
     const currentMinutes = padOneDigitNumber(Math.floor(totalSeconds / 60));
     const currentSeconds = padOneDigitNumber(totalSeconds % 60);
     let timer: NodeJS.Timer;
-    let sec = 0;
     
     const setTime = () => {
         setTotalSeconds((currentSeconds) => currentSeconds + 1);
     }
     
     useEffect(() => {
-        timer = setInterval(setTime, 1000);
-
-        if (resetTime === 0) {
-            clearInterval(timer)
+        if (resetTime) {
+            timer = setInterval(setTime, 1000);
+            setTotalSeconds(0);
         }
-
+        
         return () => {
             clearInterval(timer);
-            setTotalSeconds(0);
         }
     }, [resetTime]);
 
