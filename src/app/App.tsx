@@ -7,7 +7,7 @@ import AppContent from "../components/appContent";
 export default function App() {
     return (
         <div id="appContainer">
-            <h1>{title}</h1>
+            <h1 id="title">{title}</h1>
             <AppContent />
         </div>
     );

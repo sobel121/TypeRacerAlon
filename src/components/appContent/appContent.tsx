@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {getRandomSentenceWords, getCurrentWordTodoCharacters, getTodoWords} from "./utils";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
+import Timer from "../timeStatistics";
 import { restartGameText } from "./strings";
 import "./appContent.css";
 
@@ -11,6 +12,8 @@ export default function AppContent() {
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
     const [currentWordDoneCharacters, setCurrentWordDoneCharacters] = useState("");
+    const [resetTime, setResetTime] = useState(1);
+    const [stopTime, setStopTime] = useState(false);
 
     const restartGame = () => {
         sentenceWords.current = getRandomSentenceWords();
@@ -23,10 +26,22 @@ export default function AppContent() {
             textArea.current.value = "";
             textArea.current.focus();
         }
+
+        setResetTime((state) => state === 0 ? 1 : state * -1);
     };
+
+    useEffect(() => {
+        if (currentTargetWordIndex !== 0) {
+            setResetTime(0);
+        }
+    }, [stopTime])
 
     return (
         <>
+            <Timer
+                resetTime={resetTime}
+                wordsWritten={currentTargetWordIndex}
+            />
             <TargetSentence
                 done={done}
                 todo={getTodoWords(done.length + 1, sentenceWords.current)}
@@ -43,6 +58,7 @@ export default function AppContent() {
                     setDone={setDone} 
                     setCurrentWordDoneCharacters={setCurrentWordDoneCharacters} 
                     setCurrentTargetWordIndex={setCurrentTargetWordIndex}
+                    setStopTime={setStopTime}
                     ref={textArea}
                 />
                 <button onClick={restartGame} id="restartGameButton">{restartGameText}</button>
