@@ -12,17 +12,13 @@ export default function Timer({resetTime, wordsWritten}: TimerProps) {
     const secondsElement = useRef<HTMLLabelElement>(null);
     const wordsPerMinute = useRef<HTMLLabelElement>(null);
     const [totalSeconds, setTotalSeconds] = useState(0);
+    const currentMinutes = padOneDigitNumber(Math.floor(totalSeconds / 60));
+    const currentSeconds = padOneDigitNumber(totalSeconds % 60);
     let timer: NodeJS.Timer;
     let sec = 0;
     
     const setTime = () => {
-        sec++;
         setTotalSeconds((currentSeconds) => currentSeconds + 1);
-        
-        if (secondsElement.current && minutesElement.current) {
-            secondsElement.current.innerText = padOneDigitNumber(sec % 60);
-            minutesElement.current.innerText = padOneDigitNumber(Math.floor(sec / 60))
-        }
     }
     
     useEffect(() => {
@@ -47,7 +43,7 @@ export default function Timer({resetTime, wordsWritten}: TimerProps) {
     return (
         <div id="timeStatisticsContainer">
             <div id="timerContainer">
-                <label id="minutes" ref={minutesElement}>00</label>:<label id="seconds" ref={secondsElement}>00</label>
+                <label id="minutes" ref={minutesElement}>{currentMinutes}</label>:<label id="seconds" ref={secondsElement}>{currentSeconds}</label>
             </div>
             <div id="typingSpeedContainer">
                 <label ref={wordsPerMinute}>0</label> wpm
