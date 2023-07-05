@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {getRandomSentenceWords, getCurrentWordTodoCharacters, getTodoWords} from "./utils";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
