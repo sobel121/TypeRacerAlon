@@ -1,13 +1,13 @@
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import { isWordComplete } from "./utils";
 
 interface TypeInputProps {
     sentenceWords: string[], 
     currentTargetWordIndex: number, 
-    setDone: React.Dispatch<React.SetStateAction<string[]>>, 
-    setCurrentWordDoneCharacters: React.Dispatch<React.SetStateAction<string>>, 
-    setCurrentTargetWordIndex: React.Dispatch<React.SetStateAction<number>>,
-    setResetTime: React.Dispatch<React.SetStateAction<number>>
+    setDone: Dispatch<SetStateAction<string[]>>, 
+    setCurrentWordDoneCharacters: Dispatch<SetStateAction<string>>, 
+    setCurrentTargetWordIndex: Dispatch<SetStateAction<number>>,
+    setResetTime: Dispatch<SetStateAction<number>>
 }
 
 function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, setResetTime}:TypeInputProps, textArea: React.ForwardedRef<HTMLInputElement>) {
