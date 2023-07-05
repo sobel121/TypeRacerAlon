@@ -13,7 +13,6 @@ export default function AppContent() {
     const [done, setDone] = useState<string[]>([]);
     const [currentWordDoneCharacters, setCurrentWordDoneCharacters] = useState("");
     const [resetTime, setResetTime] = useState(1);
-    const [stopTime, setStopTime] = useState(false);
 
     const restartGame = () => {
         sentenceWords.current = getRandomSentenceWords();
@@ -29,12 +28,6 @@ export default function AppContent() {
 
         setResetTime((state) => state === 0 ? 1 : state * -1);
     };
-
-    useEffect(() => {
-        if (currentTargetWordIndex !== 0) {
-            setResetTime(0);
-        }
-    }, [stopTime])
 
     return (
         <>
@@ -58,7 +51,7 @@ export default function AppContent() {
                     setDone={setDone} 
                     setCurrentWordDoneCharacters={setCurrentWordDoneCharacters} 
                     setCurrentTargetWordIndex={setCurrentTargetWordIndex}
-                    setStopTime={setStopTime}
+                    setResetTime={setResetTime}
                     ref={textArea}
                 />
                 <button onClick={restartGame} id="restartGameButton">{restartGameText}</button>

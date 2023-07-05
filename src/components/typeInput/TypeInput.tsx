@@ -7,10 +7,10 @@ interface TypeInputProps {
     setDone: React.Dispatch<React.SetStateAction<string[]>>, 
     setCurrentWordDoneCharacters: React.Dispatch<React.SetStateAction<string>>, 
     setCurrentTargetWordIndex: React.Dispatch<React.SetStateAction<number>>,
-    setStopTime: React.Dispatch<React.SetStateAction<boolean>>
+    setResetTime: React.Dispatch<React.SetStateAction<number>>
 }
 
-function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, setStopTime}:TypeInputProps, textArea: React.ForwardedRef<HTMLInputElement>) {
+function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, setResetTime}:TypeInputProps, textArea: React.ForwardedRef<HTMLInputElement>) {
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const currentText = event.currentTarget.value;
 
@@ -29,7 +29,7 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
 
             if (sentenceWords.length === currentTargetWordIndex + 1) {
                 event.currentTarget.disabled = true;
-                setStopTime((state) => !state);
+                setResetTime(0);
             }
         }
     };
