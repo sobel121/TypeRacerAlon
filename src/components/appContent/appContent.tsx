@@ -4,7 +4,7 @@ import { getLeaderBoardFromLocalStorage, setLeaderBoardInLocalStorage, getCurren
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import Timer from "../timeStatistics";
-import LeaderBoard from "../leaderBoard";
+import DisplayLeaderBoardIfNotEmpty from "../leaderBoard";
 import { restartGameText } from "./strings";
 import "./appContent.css";
 
@@ -101,7 +101,7 @@ export default function AppContent() {
                     ref={textArea}
                 />
                 <button onClick={restartGame} id="restartGameButton">{restartGameText}</button>
-                <LeaderBoard
+                <DisplayLeaderBoardIfNotEmpty
                     leaderBoard={leaderBoard}
                 />
             </span>

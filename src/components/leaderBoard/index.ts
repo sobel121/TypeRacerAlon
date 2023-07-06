@@ -1,3 +1,3 @@
-import LeaderBoard from "./LeaderBoard";
+import DisplayLeaderBoardIfNotEmpty from "./LeaderBoard";
 
-export default LeaderBoard;
+export default DisplayLeaderBoardIfNotEmpty;

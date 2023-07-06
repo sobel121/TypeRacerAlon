@@ -7,8 +7,8 @@ interface LeaderBoardProps {
     leaderBoard: contender[]
 };
 
-export default function LeaderBoard({leaderBoard}: LeaderBoardProps) {
-    return leaderBoard.length !== 0 ? (
+function LeaderBoard(leaderBoard: contender[]) {
+    return (
         <div  id="leaderBoardContainer">
             <h1 id="leaderBoardTitle">{leaderBoardText}</h1>
             <table id="leaderBoard">
@@ -21,12 +21,16 @@ export default function LeaderBoard({leaderBoard}: LeaderBoardProps) {
                     {leaderBoard.map((contender) => {
                         return (
                             <tr key={contender.id}>
-                                <td>{ contender.wpm }</td>
+                                <td>{contender.wpm}</td>
                             </tr>
                         );
                     })}
                 </tbody>
             </table>
         </div>
-    ) : "";
+    );
+}
+
+export default function DisplayLeaderBoardIfNotEmpty({leaderBoard}: LeaderBoardProps) {
+    return leaderBoard.length === 0 ? (<></>) : (LeaderBoard(leaderBoard));
 }
