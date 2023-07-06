@@ -1,22 +1,24 @@
 import React, { useEffect, useRef, useState, MutableRefObject } from "react";
 import {getRandomSentenceWords, getCurrentWordTodoCharacters, getTodoWords} from "./utils";
-import { getLeaderBoardFromLocalStorage, setLeaderBoardInLocalStorage } from "./localStorageHandler";
+import { getLeaderBoardFromLocalStorage, setLeaderBoardInLocalStorage, getCurrentGameIdFromLocalStorage, setCurrentGameIdInLocalStorage } from "./localStorageHandler";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import Timer from "../timeStatistics";
+import LeaderBoard from "../leaderBoard";
 import { restartGameText } from "./strings";
 import "./appContent.css";
 
 export interface contender {
-    name: string;
     wpm: number;
+    id: number;
 }
 
 export default function AppContent() {
     const sentenceWords = useRef<string[]>(getRandomSentenceWords());
     const textArea = useRef<HTMLInputElement>(null);
     const nameInput = useRef<HTMLInputElement>(null);
-    const leaderBoard = useRef<contender[]>(getLeaderBoardFromLocalStorage());
+    const [leaderBoard, setLeaderBoard] = useState<contender[]>(getLeaderBoardFromLocalStorage());
+    const [currentGameId, setCurrentGameId] = useState<number>(getCurrentGameIdFromLocalStorage());
     const [totalSeconds, setTotalSeconds] = useState(0);
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
@@ -38,29 +40,41 @@ export default function AppContent() {
         setResetTime((state) => state === 0 ? 1 : state * -1);
     };
 
-    const leaderBoardObject = () => {
+    const createLeaderBoardObject = () => {
         return {
-            name: nameInput.current ? nameInput.current.value : "",
-            wpm: Math.floor(sentenceWords.current.length * 60 / totalSeconds)
+            wpm: Math.floor(sentenceWords.current.length * 60 / totalSeconds),
+            id: currentGameId
         };
     };
 
-    useEffect(() => {        
+    useEffect(() => {
         if (resetTime === 0) {
-                leaderBoard.current.push(leaderBoardObject());
-                leaderBoard.current.sort((currentContender, nextContender) => nextContender.wpm - currentContender.wpm);
-
-                if (leaderBoard.current.length >= 6) {
-                    leaderBoard.current.pop();
-                }
-            
-            setLeaderBoardInLocalStorage(leaderBoard.current);
+            setLeaderBoard((currentLeaderBoard) => {
+                const tempLeaderBoard = Object.assign([], currentLeaderBoard);
+                tempLeaderBoard.push(createLeaderBoardObject());
+                
+                return tempLeaderBoard;
+            });
         }
-    }, [resetTime])
+    }, [resetTime]);
+
+    useEffect(() => {        
+        if (leaderBoard.length !== 0) {
+            setCurrentGameId((currentId) => currentId + 1);
+            
+            setLeaderBoard((unsortedLeaderBoard) => unsortedLeaderBoard.sort((currentContender, nextContender) => nextContender.wpm - currentContender.wpm));
+            
+            if (leaderBoard.length >= 6) {
+                setLeaderBoard((overSizedLeaderBoard) => overSizedLeaderBoard.slice(0, 5));
+            }
+            
+            setCurrentGameIdInLocalStorage(currentGameId);
+            setLeaderBoardInLocalStorage(leaderBoard);
+        }
+    }, [leaderBoard]);
 
     return (
         <>
-            <input type="textArea" placeholder="Enter your name" id="nameInput" ref={nameInput}></input>
             <Timer
                 resetTime={resetTime}
                 wordsWritten={currentTargetWordIndex}
@@ -87,6 +101,9 @@ export default function AppContent() {
                     ref={textArea}
                 />
                 <button onClick={restartGame} id="restartGameButton">{restartGameText}</button>
+                <LeaderBoard
+                    leaderBoard={leaderBoard}
+                />
             </span>
         </>
     );
