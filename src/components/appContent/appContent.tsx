@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {getRandomSentenceWords, getCurrentWordTodoCharacters, getTodoWords} from "./utils";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
@@ -14,7 +14,7 @@ export default function AppContent() {
     const [currentWordDoneCharacters, setCurrentWordDoneCharacters] = useState("");
     const [resetTime, setResetTime] = useState(1);
 
-    const restartGame = () => {
+    const restartGame = useCallback(() => {
         sentenceWords.current = getRandomSentenceWords();
         setCurrentWordDoneCharacters("");
         setDone([]);
@@ -27,7 +27,7 @@ export default function AppContent() {
         }
 
         setResetTime((state) => state === 0 ? 1 : state * -1);
-    };
+    }, []);
 
     return (
         <>
