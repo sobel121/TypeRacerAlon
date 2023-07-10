@@ -1,13 +1,13 @@
 import React from "react";
-import { contender } from "../appContent/appContent";
+import { Contender } from "../appContent/types";
 import { leaderBoardText, leaderBoardTableHeaderText } from "./strings";
 import "./LeaderBoard.css";
 
 interface LeaderBoardProps {
-    leaderBoard: contender[]
+    leaderBoard: Contender[]
 };
 
-function LeaderBoard(leaderBoard: contender[]) {
+export default function LeaderBoard({leaderBoard}: LeaderBoardProps) {
     return (
         <div  id="leaderBoardContainer">
             <h1 id="leaderBoardTitle">{leaderBoardText}</h1>
@@ -29,8 +29,4 @@ function LeaderBoard(leaderBoard: contender[]) {
             </table>
         </div>
     );
-}
-
-export default function DisplayLeaderBoardIfNotEmpty({leaderBoard}: LeaderBoardProps) {
-    return leaderBoard.length === 0 ? (<></>) : (LeaderBoard(leaderBoard));
 }

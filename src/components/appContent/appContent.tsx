@@ -1,23 +1,19 @@
-import React, { useEffect, useRef, useState, MutableRefObject } from "react";
+import React, { useEffect, useRef, useState, MutableRefObject, useCallback } from "react";
 import {getRandomSentenceWords, getCurrentWordTodoCharacters, getTodoWords} from "./utils";
 import { getLeaderBoardFromLocalStorage, setLeaderBoardInLocalStorage, getCurrentGameIdFromLocalStorage, setCurrentGameIdInLocalStorage } from "./localStorageHandler";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import Timer from "../timeStatistics";
-import DisplayLeaderBoardIfNotEmpty from "../leaderBoard";
 import { restartGameText } from "./strings";
 import "./appContent.css";
-
-export interface contender {
-    wpm: number;
-    id: number;
-}
+import { Contender } from "./types";
+import { maxScoresAmount } from "./consants";
+import LeaderBoard from "../leaderBoard";
 
 export default function AppContent() {
     const sentenceWords = useRef<string[]>(getRandomSentenceWords());
     const textArea = useRef<HTMLInputElement>(null);
-    const nameInput = useRef<HTMLInputElement>(null);
-    const [leaderBoard, setLeaderBoard] = useState<contender[]>(getLeaderBoardFromLocalStorage());
+    const [leaderBoard, setLeaderBoard] = useState<Contender[]>(getLeaderBoardFromLocalStorage());
     const [currentGameId, setCurrentGameId] = useState<number>(getCurrentGameIdFromLocalStorage());
     const [totalSeconds, setTotalSeconds] = useState(0);
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
@@ -40,21 +36,16 @@ export default function AppContent() {
         setResetTime((state) => state === 0 ? 1 : state * -1);
     };
 
-    const createLeaderBoardObject = () => {
+    const createLeaderBoardObject = useCallback(() => {
         return {
             wpm: Math.floor(sentenceWords.current.length * 60 / totalSeconds),
             id: currentGameId
         };
-    };
+    }, [sentenceWords.current.length, totalSeconds]);
 
     useEffect(() => {
         if (resetTime === 0) {
-            setLeaderBoard((currentLeaderBoard) => {
-                const tempLeaderBoard = Object.assign([], currentLeaderBoard);
-                tempLeaderBoard.push(createLeaderBoardObject());
-                
-                return tempLeaderBoard;
-            });
+            setLeaderBoard((currentLeaderBoard) => [...currentLeaderBoard, createLeaderBoardObject()]);
         }
     }, [resetTime]);
 
@@ -64,8 +55,8 @@ export default function AppContent() {
             
             setLeaderBoard((unsortedLeaderBoard) => unsortedLeaderBoard.sort((currentContender, nextContender) => nextContender.wpm - currentContender.wpm));
             
-            if (leaderBoard.length >= 6) {
-                setLeaderBoard((overSizedLeaderBoard) => overSizedLeaderBoard.slice(0, 5));
+            if (leaderBoard.length >= maxScoresAmount + 1) {
+                setLeaderBoard((overSizedLeaderBoard) => overSizedLeaderBoard.slice(0, maxScoresAmount));
             }
             
             setCurrentGameIdInLocalStorage(currentGameId);
@@ -101,9 +92,9 @@ export default function AppContent() {
                     ref={textArea}
                 />
                 <button onClick={restartGame} id="restartGameButton">{restartGameText}</button>
-                <DisplayLeaderBoardIfNotEmpty
+                {leaderBoard.length !== 0 && <LeaderBoard
                     leaderBoard={leaderBoard}
-                />
+                />}
             </span>
         </>
     );
