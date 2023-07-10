@@ -1,5 +1,9 @@
-import React, { useRef, useState } from "react";
-import {getRandomSentenceWords, getCurrentWordTodoCharacters, getTodoWords} from "./utils";
+import React, { useMemo, useRef, useState } from "react";
+import {
+    getRandomSentenceWords,
+    getCurrentWordTodoCharacters,
+    getTodoWords,
+} from "./utils";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import { restartGameText } from "./strings";
@@ -10,7 +14,8 @@ export default function AppContent() {
     const textArea = useRef<HTMLInputElement>(null);
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
-    const [currentWordDoneCharacters, setCurrentWordDoneCharacters] = useState("");
+    const [currentWordDoneCharacters, setCurrentWordDoneCharacters] =
+        useState("");
 
     const restartGame = () => {
         sentenceWords.current = getRandomSentenceWords();
@@ -25,27 +30,40 @@ export default function AppContent() {
         }
     };
 
+    const todoWords = useMemo(
+        () => getTodoWords(done.length + 1, sentenceWords.current),
+        [done]
+    );
+
+    const currentWordTodoLetters = useMemo(
+        () =>
+            getCurrentWordTodoCharacters(
+                currentWordDoneCharacters.length,
+                sentenceWords.current[currentTargetWordIndex]
+            ),
+        [currentWordDoneCharacters, sentenceWords.current]
+    );
+
     return (
         <>
             <TargetSentence
                 done={done}
-                todo={getTodoWords(done.length + 1, sentenceWords.current)}
+                todo={todoWords}
                 currentWordDone={currentWordDoneCharacters}
-                currentWordTodo={getCurrentWordTodoCharacters(
-                    currentWordDoneCharacters.length,
-                    sentenceWords.current[currentTargetWordIndex]
-                )}
+                currentWordTodo={currentWordTodoLetters}
             />
             <span id="intearctiveElements">
-                <TypeInput 
-                    sentenceWords={sentenceWords.current} 
-                    currentTargetWordIndex={currentTargetWordIndex} 
-                    setDone={setDone} 
-                    setCurrentWordDoneCharacters={setCurrentWordDoneCharacters} 
+                <TypeInput
+                    sentenceWords={sentenceWords.current}
+                    currentTargetWordIndex={currentTargetWordIndex}
+                    setDone={setDone}
+                    setCurrentWordDoneCharacters={setCurrentWordDoneCharacters}
                     setCurrentTargetWordIndex={setCurrentTargetWordIndex}
-                    ref={textArea}
+                    textArea={textArea}
                 />
-                <button onClick={restartGame} id="restartGameButton">{restartGameText}</button>
+                <button onClick={restartGame} id="restartGameButton">
+                    {restartGameText}
+                </button>
             </span>
         </>
     );

@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { isWordComplete } from "./utils";
 
 interface TypeInputProps {
     sentenceWords: string[], 
     currentTargetWordIndex: number, 
-    setDone: React.Dispatch<React.SetStateAction<string[]>>, 
+    setDone: (callback: (value: string[]) => string[]) => void;
     setCurrentWordDoneCharacters: React.Dispatch<React.SetStateAction<string>>, 
-    setCurrentTargetWordIndex: React.Dispatch<React.SetStateAction<number>>
+    setCurrentTargetWordIndex: React.Dispatch<React.SetStateAction<number>>,
+    textArea: React.ForwardedRef<HTMLInputElement>
 }
 
-function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex}:TypeInputProps, textArea: React.ForwardedRef<HTMLInputElement>) {
-    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, textArea}:TypeInputProps) {
+    const handleInput = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const currentText = event.currentTarget.value;
 
         if (sentenceWords[currentTargetWordIndex].startsWith(currentText)) {
@@ -18,8 +19,8 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
         }
 
         if (isWordComplete(currentText, sentenceWords, currentTargetWordIndex)) {
-            setDone((doneWords) =>
-                doneWords.concat(sentenceWords[currentTargetWordIndex])
+            setDone((done) =>
+                done.concat(sentenceWords[currentTargetWordIndex])
             );
 
             setCurrentTargetWordIndex((index) => index + 1);
@@ -30,7 +31,7 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
                 event.currentTarget.disabled = true;
             }
         }
-    };
+    }, [currentTargetWordIndex]);
 
     return (
         <input type="textArea" onChange={handleInput} ref={textArea} id="textInputArea"></input>
