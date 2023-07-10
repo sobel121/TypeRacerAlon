@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState, useMemo} from "react";
 import { padOneDigitNumber } from "./utils";
 import "./TimeStatistics.css";
 
@@ -12,9 +12,9 @@ export default function Timer({resetTime, wordsWritten}: TimerProps) {
     const secondsElement = useRef<HTMLLabelElement>(null);
     const wordsPerMinute = useRef<HTMLLabelElement>(null);
     const [totalSeconds, setTotalSeconds] = useState(0);
-    const currentMinutes = padOneDigitNumber(Math.floor(totalSeconds / 60));
-    const currentSeconds = padOneDigitNumber(totalSeconds % 60);
-    const wpm = "" + (Math.floor(wordsWritten * 60 / totalSeconds) ? Math.floor(wordsWritten * 60 / totalSeconds) : 0);
+    const currentMinutes = useMemo(() => padOneDigitNumber(Math.floor(totalSeconds / 60)), [totalSeconds]);
+    const currentSeconds = useMemo(() => padOneDigitNumber(totalSeconds % 60), [totalSeconds]);
+    const wpm = useMemo(() => "" + (Math.floor(wordsWritten * 60 / totalSeconds) ? Math.floor(wordsWritten * 60 / totalSeconds) : 0), [totalSeconds, wordsWritten]);
     let timer: NodeJS.Timer;
     
     const setTime = () => {
@@ -31,12 +31,6 @@ export default function Timer({resetTime, wordsWritten}: TimerProps) {
             clearInterval(timer);
         }
     }, [resetTime]);
-
-    // useEffect(() => {    
-    //     if (wordsPerMinute.current && totalSeconds !== 0) {
-    //         wordsPerMinute.current.innerText = "" + Math.floor(wordsWritten * 60 / totalSeconds);
-    //     }
-    // }, [totalSeconds]);
 
     return (
         <div id="timeStatisticsContainer">
