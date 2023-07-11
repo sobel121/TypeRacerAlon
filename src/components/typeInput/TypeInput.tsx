@@ -5,8 +5,8 @@ interface TypeInputProps {
     sentenceWords: string[], 
     currentTargetWordIndex: number, 
     setDone: (callback: (value: string[]) => string[]) => void;
-    setCurrentWordDoneCharacters: React.Dispatch<React.SetStateAction<string>>, 
-    setCurrentTargetWordIndex: React.Dispatch<React.SetStateAction<number>>,
+    setCurrentWordDoneCharacters: (value: string) => void;
+    setCurrentTargetWordIndex: (callback: (value: number) => number) => void;
     textArea: React.ForwardedRef<HTMLInputElement>
 }
 

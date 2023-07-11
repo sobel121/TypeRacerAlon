@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
     getRandomSentenceWords,
     getCurrentWordTodoCharacters,
@@ -17,7 +17,7 @@ export default function AppContent() {
     const [currentWordDoneCharacters, setCurrentWordDoneCharacters] =
         useState("");
 
-    const restartGame = () => {
+    const restartGame = useCallback(() => {
         sentenceWords.current = getRandomSentenceWords();
         setCurrentWordDoneCharacters("");
         setDone([]);
@@ -28,7 +28,7 @@ export default function AppContent() {
             textArea.current.value = "";
             textArea.current.focus();
         }
-    };
+    }, []);
 
     const todoWords = useMemo(
         () => getTodoWords(done.length + 1, sentenceWords.current),
