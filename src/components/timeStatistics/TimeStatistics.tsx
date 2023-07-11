@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState, useMemo} from "react";
+import React, { useEffect, useRef, Dispatch, SetStateAction} from "react";
 import { padOneDigitNumber } from "./utils";
 import "./TimeStatistics.css";
 
 interface TimerProps {
     resetTime: number,
-    wordsWritten: number
+    wordsWritten: number,
+    totalSeconds: number
+    setTotalSeconds: Dispatch<SetStateAction<number>>
 };
 
-export default function Timer({resetTime, wordsWritten}: TimerProps) {
+export default function Timer({resetTime, wordsWritten, totalSeconds, setTotalSeconds}: TimerProps) {
     const minutesElement = useRef<HTMLLabelElement>(null);
     const secondsElement = useRef<HTMLLabelElement>(null);
-    const wordsPerMinute = useRef<HTMLLabelElement>(null);
-    const [totalSeconds, setTotalSeconds] = useState(0);
-    const currentMinutes = useMemo(() => padOneDigitNumber(Math.floor(totalSeconds / 60)), [totalSeconds]);
-    const currentSeconds = useMemo(() => padOneDigitNumber(totalSeconds % 60), [totalSeconds]);
-    const wpm = useMemo(() => "" + (Math.floor(wordsWritten * 60 / totalSeconds) ? Math.floor(wordsWritten * 60 / totalSeconds) : 0), [totalSeconds, wordsWritten]);
+    const wordsPerMinuteElement = useRef<HTMLLabelElement>(null);
+    const currentMinutes = padOneDigitNumber(Math.floor(totalSeconds / 60));
+    const currentSeconds = padOneDigitNumber(totalSeconds % 60);
+    const wpm = "" + (Math.floor(wordsWritten * 60 / totalSeconds) ? Math.floor(wordsWritten * 60 / totalSeconds) : 0);
     let timer: NodeJS.Timer;
     
     const setTime = () => {
@@ -38,7 +39,7 @@ export default function Timer({resetTime, wordsWritten}: TimerProps) {
                 <label id="minutes" ref={minutesElement}>{currentMinutes}</label>:<label id="seconds" ref={secondsElement}>{currentSeconds}</label>
             </div>
             <div id="typingSpeedContainer">
-                <label ref={wordsPerMinute}>{wpm}</label> wpm
+                <label ref={wordsPerMinuteElement}>{wpm}</label> wpm
             </div>
         </div>
     )

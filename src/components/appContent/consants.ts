@@ -1,0 +1,1 @@
+export const maxScoresAmount = 5;

@@ -16,3 +16,9 @@
     font-size: 24px;
     font-family: monospace;
 }
+
+#nameInput {
+    align-self: center;
+    width: 200px;
+    margin-bottom: 15px;
+}
