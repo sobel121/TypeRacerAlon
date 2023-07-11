@@ -1,4 +1,6 @@
 import React from "react";
+import Box from "@mui/material/Box";
+import { sentenceContainerStyles } from "./styles";
 import "./TargetSentence.css"
 
 interface TargetSentenceProps {
@@ -10,11 +12,11 @@ interface TargetSentenceProps {
 
 export default function TargetSentence({done, todo, currentWordDone, currentWordTodo}: TargetSentenceProps) {
     return (
-        <span id="targetSentence">
+        <Box sx={sentenceContainerStyles}>
             <span className="targetSentencePart" id="doneWords">{done.join(" ") + " "}</span>
             <span className="targetSentencePart" id="doneLettersInCurrentWord">{currentWordDone}</span>
             <span className="targetSentencePart" id="todoLettersInCurrentWord">{currentWordTodo}</span>
             <span className="targetSentencePart" id="todoWords">{" " + todo.join(" ")}</span>
-        </span>
+        </Box>
     );
 }

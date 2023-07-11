@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, Dispatch, SetStateAction} from "react";
 import { padOneDigitNumber } from "./utils";
-import "./TimeStatistics.css";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import { containerStyles, minutesElementStyles, secondsElementStyles, timeContainerStyles, wpmStyles } from "./styles";
 
 interface TimerProps {
     resetTime: number,
@@ -10,8 +12,6 @@ interface TimerProps {
 };
 
 export default function Timer({resetTime, wordsWritten, totalSeconds, setTotalSeconds}: TimerProps) {
-    const minutesElement = useRef<HTMLLabelElement>(null);
-    const secondsElement = useRef<HTMLLabelElement>(null);
     const wordsPerMinuteElement = useRef<HTMLLabelElement>(null);
     const currentMinutes = padOneDigitNumber(Math.floor(totalSeconds / 60));
     const currentSeconds = padOneDigitNumber(totalSeconds % 60);
@@ -34,13 +34,14 @@ export default function Timer({resetTime, wordsWritten, totalSeconds, setTotalSe
     }, [resetTime]);
 
     return (
-        <div id="timeStatisticsContainer">
-            <div id="timerContainer">
-                <label id="minutes" ref={minutesElement}>{currentMinutes}</label>:<label id="seconds" ref={secondsElement}>{currentSeconds}</label>
-            </div>
-            <div id="typingSpeedContainer">
-                <label ref={wordsPerMinuteElement}>{wpm}</label> wpm
-            </div>
-        </div>
+        <Box sx={containerStyles}>
+            <Box sx={timeContainerStyles}>
+                <InputLabel sx={minutesElementStyles}>{currentMinutes}</InputLabel>:<InputLabel sx={secondsElementStyles}>{currentSeconds}</InputLabel>
+            </Box>
+
+            <Box>
+                <InputLabel sx={wpmStyles}>{wpm}</InputLabel> wpm
+            </Box>
+        </Box>
     )
 }
