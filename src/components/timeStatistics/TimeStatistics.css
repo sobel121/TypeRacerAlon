@@ -1,0 +1,6 @@
+#timeStatisticsContainer {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: inline-flex;
+    justify-content: space-around;
+}

@@ -1,11 +1,8 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import {
-    getRandomSentenceWords,
-    getCurrentWordTodoCharacters,
-    getTodoWords,
-} from "./utils";
+import {getRandomSentenceWords, getCurrentWordTodoCharacters, getTodoWords} from "./utils";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
+import Timer from "../timeStatistics";
 import { restartGameText } from "./strings";
 import "./appContent.css";
 
@@ -14,8 +11,8 @@ export default function AppContent() {
     const textArea = useRef<HTMLInputElement>(null);
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
-    const [currentWordDoneCharacters, setCurrentWordDoneCharacters] =
-        useState("");
+    const [currentWordDoneCharacters, setCurrentWordDoneCharacters] = useState("");
+    const [resetTime, setResetTime] = useState(1);
 
     const restartGame = useCallback(() => {
         sentenceWords.current = getRandomSentenceWords();
@@ -27,7 +24,10 @@ export default function AppContent() {
             textArea.current.disabled = false;
             textArea.current.value = "";
             textArea.current.focus();
-        }
+        }        
+        
+        setResetTime((state) => state === 0 ? 1 : state * -1);
+
     }, []);
 
     const todoWords = useMemo(
@@ -46,6 +46,10 @@ export default function AppContent() {
 
     return (
         <>
+            <Timer
+                resetTime={resetTime}
+                wordsWritten={currentTargetWordIndex}
+            />
             <TargetSentence
                 done={done}
                 todo={todoWords}
@@ -60,6 +64,7 @@ export default function AppContent() {
                     setCurrentWordDoneCharacters={setCurrentWordDoneCharacters}
                     setCurrentTargetWordIndex={setCurrentTargetWordIndex}
                     textArea={textArea}
+                    setResetTime={setResetTime}
                 />
                 <button onClick={restartGame} id="restartGameButton">
                     {restartGameText}

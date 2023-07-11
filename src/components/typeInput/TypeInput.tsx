@@ -7,10 +7,11 @@ interface TypeInputProps {
     setDone: (callback: (value: string[]) => string[]) => void;
     setCurrentWordDoneCharacters: (value: string) => void;
     setCurrentTargetWordIndex: (callback: (value: number) => number) => void;
+    setResetTime: (value: number) => void;
     textArea: React.ForwardedRef<HTMLInputElement>
 }
 
-function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, textArea}:TypeInputProps) {
+function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, textArea, setResetTime}:TypeInputProps) {
     const handleInput = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const currentText = event.currentTarget.value;
 
@@ -29,6 +30,7 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
 
             if (sentenceWords.length === currentTargetWordIndex + 1) {
                 event.currentTarget.disabled = true;
+                setResetTime(0);
             }
         }
     }, [currentTargetWordIndex]);
