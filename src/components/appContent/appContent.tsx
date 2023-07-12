@@ -5,10 +5,11 @@ import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import Timer from "../timeStatistics";
 import { restartGameText } from "./strings";
-import "./appContent.css";
 import { Contender } from "./types";
 import { maxScoresAmount } from "./consants";
 import LeaderBoard from "../leaderBoard";
+import { Box, Button } from "@mui/material"
+import { interactiveElementsStyles, restartButtonStyles } from "./styles";
 
 export default function AppContent() {
     const sentenceWords = useRef<string[]>(getRandomSentenceWords());
@@ -81,7 +82,7 @@ export default function AppContent() {
                     sentenceWords.current[currentTargetWordIndex]
                 )}
             />
-            <span id="intearctiveElements">
+            <Box sx={interactiveElementsStyles}>
                 <TypeInput 
                     sentenceWords={sentenceWords.current} 
                     currentTargetWordIndex={currentTargetWordIndex} 
@@ -91,11 +92,12 @@ export default function AppContent() {
                     setResetTime={setResetTime}
                     ref={textArea}
                 />
-                <button onClick={restartGame} id="restartGameButton">{restartGameText}</button>
+                <Button onClick={restartGame} sx={restartButtonStyles}>{restartGameText}</Button>
+
+            </Box>
                 {leaderBoard.length !== 0 && <LeaderBoard
                     leaderBoard={leaderBoard}
-                />}
-            </span>
+                    />}
         </>
     );
 }
