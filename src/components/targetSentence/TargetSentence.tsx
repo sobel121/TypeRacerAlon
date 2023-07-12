@@ -1,7 +1,7 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import { sentenceContainerStyles } from "./styles";
-import "./TargetSentence.css"
+import { Box, Typography } from "@mui/material"
+import { sentenceContainerStyles, doneWordsStyles, doneCharactesInCurrentWordStyles, todoCharactersInCurrentWordStyles, todoWordsStyles } from "./styles";
+// import "./TargetSentence.css"
 
 interface TargetSentenceProps {
     done: string[],
@@ -13,10 +13,10 @@ interface TargetSentenceProps {
 export default function TargetSentence({done, todo, currentWordDone, currentWordTodo}: TargetSentenceProps) {
     return (
         <Box sx={sentenceContainerStyles}>
-            <span className="targetSentencePart" id="doneWords">{done.join(" ") + " "}</span>
-            <span className="targetSentencePart" id="doneLettersInCurrentWord">{currentWordDone}</span>
-            <span className="targetSentencePart" id="todoLettersInCurrentWord">{currentWordTodo}</span>
-            <span className="targetSentencePart" id="todoWords">{" " + todo.join(" ")}</span>
+            <Typography sx={doneWordsStyles}>{done.join(" ") + (done.length === 0 ? "" : " ")}</Typography>
+            <Typography sx={doneCharactesInCurrentWordStyles}>{currentWordDone}</Typography>
+            <Typography sx={todoCharactersInCurrentWordStyles}>{currentWordTodo}</Typography>
+            <Typography sx={todoWordsStyles}>{" " + todo.join(" ")}</Typography>
         </Box>
     );
 }
