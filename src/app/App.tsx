@@ -1,14 +1,15 @@
 import React from "react";
-import "./App.css";
-
 import { title } from "./strings";
 import AppContent from "../components/appContent";
+import { Box, Typography } from "@mui/material";
+import { titleStyles, appContainerStyles } from "./styles";
 
 export default function App() {
     return (
-        <div id="appContainer">
-            <h1 id="title">{title}</h1>
+        <Box sx={appContainerStyles}>
+            {/* <h1 id="title">{title}</h1> */}
+            <Typography sx={titleStyles}>{title}</Typography>
             <AppContent />
-        </div>
+        </Box>
     );
 }
