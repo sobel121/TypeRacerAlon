@@ -1,5 +1,7 @@
 import React, {Dispatch, SetStateAction} from "react";
 import { isWordComplete } from "./utils";
+import { Input } from "@mui/material";
+import { textInputStyles } from "./styles";
 
 interface TypeInputProps {
     sentenceWords: string[], 
@@ -35,7 +37,7 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
     };
 
     return (
-        <input type="textArea" onChange={handleInput} ref={textArea} id="textInputArea"></input>
+        <Input disableUnderline={true} inputRef={textArea} sx={textInputStyles} onChange={handleInput}></Input>
     );
 }
 

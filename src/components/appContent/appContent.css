@@ -9,16 +9,3 @@
     display: inline-flex;
     margin-top: 10px;
 }
-
-#textInputArea {
-    width: 800px;
-    height: 32px;
-    font-size: 24px;
-    font-family: monospace;
-}
-
-#nameInput {
-    align-self: center;
-    width: 200px;
-    margin-bottom: 15px;
-}
