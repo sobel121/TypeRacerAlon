@@ -1,7 +1,7 @@
 export const sentenceContainerStyles = {
     "padding-bottom": 5,
     "user-select": "none",
-    "margin-left": 10,
+    "ml": 1.25,
 }
 
 export const doneWordsStyles = {

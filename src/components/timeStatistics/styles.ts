@@ -1,6 +1,6 @@
 export const containerStyles = {    
     "font-size": 20,
-    "margin-bottom": 10,
+    "mb": 1.25,
     "display": "inline-flex",
     "justify-content": "space-around",
 }
