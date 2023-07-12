@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, Dispatch, SetStateAction} from "react";
 import { padOneDigitNumber } from "./utils";
-import Box from '@mui/material/Box';
+import { Box, Typography } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import { containerStyles, minutesElementStyles, secondsElementStyles, timeContainerStyles, wpmStyles } from "./styles";
 
@@ -36,7 +36,7 @@ export default function Timer({resetTime, wordsWritten, totalSeconds, setTotalSe
     return (
         <Box sx={containerStyles}>
             <Box sx={timeContainerStyles}>
-                <InputLabel sx={minutesElementStyles}>{currentMinutes}</InputLabel>:<InputLabel sx={secondsElementStyles}>{currentSeconds}</InputLabel>
+                <Typography sx={minutesElementStyles}>{currentMinutes}</Typography>:<Typography sx={secondsElementStyles}>{currentSeconds}</Typography>
             </Box>
 
             <Box>
