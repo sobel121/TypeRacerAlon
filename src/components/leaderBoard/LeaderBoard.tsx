@@ -1,32 +1,50 @@
 import React from "react";
 import { Contender } from "../appContent/types";
 import { leaderBoardText, leaderBoardTableHeaderText } from "./strings";
-import "./LeaderBoard.css";
+import {
+    Box,
+    Typography,
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+} from "@mui/material";
+import {
+    tableContainerStyles,
+    tableTitleStyles,
+    leaderBoardStyles,
+    tableCellStyles,
+} from "./styles";
 
 interface LeaderBoardProps {
-    leaderBoard: Contender[]
-};
+    leaderBoard: Contender[];
+}
 
-export default function LeaderBoard({leaderBoard}: LeaderBoardProps) {
+export default function LeaderBoard({ leaderBoard }: LeaderBoardProps) {
     return (
-        <div  id="leaderBoardContainer">
-            <h1 id="leaderBoardTitle">{leaderBoardText}</h1>
-            <table id="leaderBoard">
-                <thead>
-                    <tr>
-                        <th>{leaderBoardTableHeaderText}</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <Box sx={tableContainerStyles}>
+            <Typography sx={tableTitleStyles}>{leaderBoardText}</Typography>
+            <Table sx={leaderBoardStyles}>
+                <TableHead>
+                    <TableRow>
+                        <TableCell sx={tableCellStyles}>
+                            {leaderBoardTableHeaderText}
+                        </TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {leaderBoard.map((contender) => {
                         return (
-                            <tr key={contender.id}>
-                                <td>{contender.wpm}</td>
-                            </tr>
+                            <TableRow key={contender.id}>
+                                <TableCell sx={tableCellStyles}>
+                                    {contender.wpm}
+                                </TableCell>
+                            </TableRow>
                         );
                     })}
-                </tbody>
-            </table>
-        </div>
+                </TableBody>
+            </Table>
+        </Box>
     );
 }

@@ -1,5 +1,7 @@
 import React, { useCallback } from "react";
 import { isWordComplete } from "./utils";
+import { TextField } from "@mui/material";
+import { textInputStyles, textInputPropsStyles } from "./styles";
 
 interface TypeInputProps {
     sentenceWords: string[], 
@@ -11,7 +13,7 @@ interface TypeInputProps {
     textArea: React.ForwardedRef<HTMLInputElement>
 }
 
-function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, textArea, setResetTime}:TypeInputProps) {
+function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, setResetTime}:TypeInputProps, textArea: React.ForwardedRef<HTMLInputElement>) {
     const handleInput = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const currentText = event.currentTarget.value;
 
@@ -19,9 +21,11 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
             setCurrentWordDoneCharacters(currentText);
         }
 
-        if (isWordComplete(currentText, sentenceWords, currentTargetWordIndex)) {
-            setDone((done) =>
-                done.concat(sentenceWords[currentTargetWordIndex])
+        if (
+            isWordComplete(currentText, sentenceWords, currentTargetWordIndex)
+        ) {
+            setDone((doneWords) =>
+                doneWords.concat(sentenceWords[currentTargetWordIndex])
             );
 
             setCurrentTargetWordIndex((index) => index + 1);
@@ -36,7 +40,13 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
     }, [currentTargetWordIndex]);
 
     return (
-        <input type="textArea" onChange={handleInput} ref={textArea} id="textInputArea"></input>
+        <TextField
+            sx={textInputStyles}
+            variant="outlined"
+            inputRef={textArea}
+            onChange={handleInput}
+            inputProps={textInputPropsStyles}
+        ></TextField>
     );
 }
 

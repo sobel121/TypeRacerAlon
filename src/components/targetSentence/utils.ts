@@ -1,0 +1,1 @@
+export const addSpacing = (length: number) => length === 0 ? "" : " ";
