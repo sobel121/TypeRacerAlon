@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction} from "react";
 import { isWordComplete } from "./utils";
-import { Input } from "@mui/material";
-import { textInputStyles } from "./styles";
+import { TextField } from "@mui/material";
+import { textInputStyles, textInputPropsStyles } from "./styles";
 
 interface TypeInputProps {
     sentenceWords: string[], 
@@ -37,7 +37,7 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
     };
 
     return (
-        <Input disableUnderline={true} inputRef={textArea} sx={textInputStyles} onChange={handleInput}></Input>
+        <TextField sx={textInputStyles} variant="outlined" inputRef={textArea}  onChange={handleInput} inputProps={textInputPropsStyles}></TextField>
     );
 }
 
