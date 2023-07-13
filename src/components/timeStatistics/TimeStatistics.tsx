@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, Dispatch, SetStateAction } from "react";
 import { padOneDigitNumber } from "./utils";
 import { Box, Typography } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
 import {
     containerStyles,
     minutesElementStyles,
@@ -23,7 +22,6 @@ export default function Timer({
     totalSeconds,
     setTotalSeconds,
 }: TimerProps) {
-    const wordsPerMinuteElement = useRef<HTMLLabelElement>(null);
     const currentMinutes = padOneDigitNumber(Math.floor(totalSeconds / 60));
     const currentSeconds = padOneDigitNumber(totalSeconds % 60);
     const wpm =
@@ -61,7 +59,7 @@ export default function Timer({
             </Box>
 
             <Box>
-                <InputLabel sx={wpmStyles}>{wpm}</InputLabel> wpm
+                <Typography sx={wpmStyles}>{wpm}</Typography> wpm
             </Box>
         </Box>
     );
