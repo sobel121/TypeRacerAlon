@@ -36,7 +36,7 @@ function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWo
                 setResetTime(0);
             }
         }
-    }, [currentTargetWordIndex]);
+    }, [currentTargetWordIndex, sentenceWords]);
 
     return (
         <TextField
