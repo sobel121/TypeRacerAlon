@@ -7,8 +7,8 @@ export const restartButtonStyles = {
     "ml": 0.5,
     "width": 200,
     "height": 32,
-    "font-size": "larger",
+    "fontSize": "larger",
     "color": "black",
     "border": "1px solid",
-    "background-color": "#dbd5d5"
+    "backgroundColor": "#dbd5d5"
 }
