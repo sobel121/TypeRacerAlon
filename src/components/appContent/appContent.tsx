@@ -131,7 +131,7 @@ export default function AppContent() {
                     setDone={setDone}
                     setCurrentWordDoneCharacters={setCurrentWordDoneCharacters}
                     setCurrentTargetWordIndex={setCurrentTargetWordIndex}
-                    textArea={textArea}
+                    ref={textArea}
                     setResetTime={setResetTime}
                 />
                 <Button onClick={restartGame} sx={restartButtonStyles}>

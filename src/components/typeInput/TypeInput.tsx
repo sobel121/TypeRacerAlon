@@ -10,7 +10,6 @@ interface TypeInputProps {
     setCurrentWordDoneCharacters: (value: string) => void;
     setCurrentTargetWordIndex: (callback: (value: number) => number) => void;
     setResetTime: (value: number) => void;
-    textArea: React.ForwardedRef<HTMLInputElement>
 }
 
 function TypeInput({sentenceWords, currentTargetWordIndex, setDone, setCurrentWordDoneCharacters, setCurrentTargetWordIndex, setResetTime}:TypeInputProps, textArea: React.ForwardedRef<HTMLInputElement>) {
