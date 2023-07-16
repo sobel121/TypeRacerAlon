@@ -1,5 +1,5 @@
 export const tableContainerStyles = {
-    "mt": 3,
+    "mt": 1,
     "display": "grid",
     "justifyContent": "center",
 }
@@ -15,13 +15,13 @@ export const leaderBoardStyles = {
     "fontSize": 25,
     "border": "1px solid black",
     "borderCollapse": "collapse",
-    "mt": 2,
+    "mt": 1,
 }
 
 export const tableCellStyles = {
     "textAlign": "center",
     "border": "1px solid black",
     "borderCollapse": "collapse",
-    "fontSize": 20,
+    "fontSize": 18,
     "padding": 1
 }
