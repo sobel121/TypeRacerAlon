@@ -1,5 +1,5 @@
 import React from "react";
-import { Contender } from "../appContent/types";
+import { Contender } from "../../customHooks/useLeaderBoard/types";
 import { leaderBoardText, leaderBoardTableHeaderText } from "./strings";
 import {
     Box,

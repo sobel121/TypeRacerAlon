@@ -11,8 +11,6 @@ import {
     getTodoWords,
 } from "./utils";
 import {
-    getLeaderBoardFromLocalStorage,
-    setLeaderBoardInLocalStorage,
     getCurrentGameIdFromLocalStorage,
     setCurrentGameIdInLocalStorage,
 } from "./localStorageHandler";
@@ -20,22 +18,23 @@ import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import Timer from "../timeStatistics";
 import { restartGameText } from "./strings";
-import { Contender } from "./types";
-import { maxScoresAmount } from "./consants";
 import LeaderBoard from "../leaderBoard";
 import { Box, Button } from "@mui/material";
 import { interactiveElementsStyles, restartButtonStyles } from "./styles";
+import { useLeaderBoard } from "../../customHooks/useLeaderBoard/useLeaderBoard";
+import { useUpdateLeaderBoard } from "../../customHooks/useUpdateLeaderBoard/useUpdateLeaderBoader";
+import { createLeaderBoardObject } from "./utils";
 
 export default function AppContent() {
     const sentenceWords = useRef<string[]>(getRandomSentenceWords());
     const textArea = useRef<HTMLInputElement>(null);
-    const [leaderBoard, setLeaderBoard] = useState<Contender[]>(
-        getLeaderBoardFromLocalStorage()
-    );
     const [currentGameId, setCurrentGameId] = useState<number>(
         getCurrentGameIdFromLocalStorage()
     );
     const [totalSeconds, setTotalSeconds] = useState(0);
+    const {data: leaderBoard} = useLeaderBoard();
+    const {mutate: setLeaderBoard} = useUpdateLeaderBoard(createLeaderBoardObject(sentenceWords.current, totalSeconds, currentGameId), leaderBoard)
+    
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
     const [currentWordDoneCharacters, setCurrentWordDoneCharacters] =
@@ -72,43 +71,13 @@ export default function AppContent() {
         [currentWordDoneCharacters, sentenceWords.current]
     );
 
-    const createLeaderBoardObject = useCallback(() => {
-        return {
-            wpm: Math.floor((sentenceWords.current.length * 60) / totalSeconds),
-            id: currentGameId,
-        };
-    }, [sentenceWords.current.length, totalSeconds]);
-
-    useEffect(() => {
+    useEffect(() => {        
         if (resetTime === 0) {
-            setLeaderBoard((currentLeaderBoard) => [
-                ...currentLeaderBoard,
-                createLeaderBoardObject(),
-            ]);
+            setLeaderBoard(createLeaderBoardObject(sentenceWords.current, totalSeconds, currentGameId));
+            setCurrentGameId((currentId) => currentId + 1);
+            setCurrentGameIdInLocalStorage(currentGameId);
         }
     }, [resetTime]);
-
-    useEffect(() => {
-        if (leaderBoard.length !== 0) {
-            setCurrentGameId((currentId) => currentId + 1);
-
-            setLeaderBoard((unsortedLeaderBoard) =>
-                unsortedLeaderBoard.sort(
-                    (currentContender, nextContender) =>
-                        nextContender.wpm - currentContender.wpm
-                )
-            );
-
-            if (leaderBoard.length >= maxScoresAmount + 1) {
-                setLeaderBoard((overSizedLeaderBoard) =>
-                    overSizedLeaderBoard.slice(0, maxScoresAmount)
-                );
-            }
-
-            setCurrentGameIdInLocalStorage(currentGameId);
-            setLeaderBoardInLocalStorage(leaderBoard);
-        }
-    }, [leaderBoard]);
 
     return (
         <>
@@ -138,7 +107,7 @@ export default function AppContent() {
                     {restartGameText}
                 </Button>
             </Box>
-            {leaderBoard.length !== 0 && (
+            {leaderBoard && leaderBoard.length !== 0 && (
                 <LeaderBoard leaderBoard={leaderBoard} />
             )}
         </>
