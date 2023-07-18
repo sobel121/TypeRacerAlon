@@ -1,1 +1,0 @@
-export const errorMessage = (errorMessage: String) => "An error occurred: " + errorMessage;
