@@ -1,6 +1,6 @@
 import { Contender } from "./types";
 import { maxScoresAmount } from "./consants";
-import { setLeaderBoardInLocalStorage } from "./localStorageHandler";
+import { updateLeaderBoardInLocalStorage } from "./localStorageHandler";
 
 export const updateLeaderBoard: (leaderBoard: Contender[], newContender: Contender) => Promise<Contender[]> = async (leaderBoard, newContender) => {
     leaderBoard.push(newContender);
@@ -10,7 +10,7 @@ export const updateLeaderBoard: (leaderBoard: Contender[], newContender: Contend
         leaderBoard.pop();
     }
 
-    setLeaderBoardInLocalStorage(leaderBoard);
+    updateLeaderBoardInLocalStorage(leaderBoard);
 
     return leaderBoard;
 }
