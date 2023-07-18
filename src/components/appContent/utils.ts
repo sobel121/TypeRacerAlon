@@ -13,9 +13,9 @@ export const getTodoWords = (
     sentenceWords: string[]
 ) => sentenceWords.slice(doneWordsAmount);
 
-export const createLeaderBoardObject = (sentenceWords: string[], totalSeconds: number, currentGameId: number) => {  
+export const createLeaderBoardObject = (sentenceWordsAmount: number, totalSeconds: number, currentGameId: number) => {  
     return {
-        wpm: Math.floor((sentenceWords.length * 60) / totalSeconds),
+        wpm: Math.floor((sentenceWordsAmount * 60) / totalSeconds),
         id: currentGameId,
     }
 }
