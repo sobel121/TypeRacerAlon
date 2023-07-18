@@ -10,8 +10,8 @@ import {
     getCurrentWordTodoCharacters,
     getTodoWords,
 } from "./utils";
-import { getCurrentGameIdFromLocalStorage } from "../../api/localStorageApi/getGameId";
-import { updateCurrentGameIdInLocalStorage } from "../../api/localStorageApi/updateGameId";
+import { getCurrentGameIdFromLocalStorage } from "../../api/localStorageApi";
+import { updateCurrentGameIdInLocalStorage } from "../../api/localStorageApi";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import Timer from "../timeStatistics";
