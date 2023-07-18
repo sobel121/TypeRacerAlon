@@ -23,7 +23,7 @@ import { Box, Button } from "@mui/material";
 import { interactiveElementsStyles, restartButtonStyles } from "./styles";
 import { useLeaderBoard } from "../../customHooks/useLeaderBoard/useLeaderBoard";
 import { useUpdateLeaderBoard } from "../../customHooks/useUpdateLeaderBoard/useUpdateLeaderBoader";
-import { createLeaderBoardObject } from "./utils";
+import { createLeaderBoardContender } from "./utils";
 
 export default function AppContent() {
     const sentenceWords = useRef<string[]>(getRandomSentenceWords());
@@ -33,7 +33,7 @@ export default function AppContent() {
     );
     const [totalSeconds, setTotalSeconds] = useState(0);
     const leaderBoard = useLeaderBoard();
-    const {mutate: updateLeaderBoard} = useUpdateLeaderBoard(createLeaderBoardObject(sentenceWords.current.length, totalSeconds, currentGameId), leaderBoard)
+    const {mutate: updateLeaderBoard} = useUpdateLeaderBoard(createLeaderBoardContender(sentenceWords.current.length, totalSeconds, currentGameId), leaderBoard)
     
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
@@ -75,7 +75,7 @@ export default function AppContent() {
         if (resetTime === 0) {
             setCurrentGameId((currentId) => currentId + 1);
             setCurrentGameIdInLocalStorage(currentGameId);
-            updateLeaderBoard(createLeaderBoardObject(sentenceWords.current.length, totalSeconds, currentGameId));
+            updateLeaderBoard(createLeaderBoardContender(sentenceWords.current.length, totalSeconds, currentGameId));
         }
     }, [resetTime]);
 
