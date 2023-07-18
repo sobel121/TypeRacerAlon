@@ -4,11 +4,7 @@ import { loadingMessage, errorMessage } from "./strings";
 
 
 export function useLeaderBoard() { 
-    const { isLoading, isError, error, data } = useQuery(['leaderBoard'], () => getLeaderBoardFromLocalStorage());   
-
-    if (isLoading) {
-        console.log(loadingMessage);
-    }
+    const { isError, error, data } = useQuery(['leaderBoard'], () => getLeaderBoardFromLocalStorage());   
 
     if (isError && error instanceof Error) {
         console.log(errorMessage + error.message);
