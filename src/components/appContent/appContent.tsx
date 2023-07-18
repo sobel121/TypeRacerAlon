@@ -21,8 +21,8 @@ import { restartGameText } from "./strings";
 import LeaderBoard from "../leaderBoard";
 import { Box, Button } from "@mui/material";
 import { interactiveElementsStyles, restartButtonStyles } from "./styles";
-import { useLeaderBoard } from "../../customHooks/useLeaderBoard/useLeaderBoard";
-import { useUpdateLeaderBoard } from "../../customHooks/useUpdateLeaderBoard/useUpdateLeaderBoader";
+import useLeaderBoard from "../../customHooks/useLeaderBoard";
+import useUpdateLeaderBoard from "../../customHooks/useUpdateLeaderBoard";
 import { createLeaderBoardContender } from "./utils";
 
 export default function AppContent() {
