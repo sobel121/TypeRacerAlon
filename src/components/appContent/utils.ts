@@ -8,11 +8,6 @@ export const getCurrentWordTodoCharacters = (
     currentWord: string
 ) => (currentWord ? currentWord.substring(doneCharactersLength) : "");
 
-export const getTodoWords = (
-    doneWordsAmount: number,
-    sentenceWords: string[]
-) => sentenceWords.slice(doneWordsAmount);
-
 export const createLeaderBoardContender = (sentenceWordsAmount: number, totalSeconds: number, currentGameId: number) => {  
     return {
         wpm: Math.floor((sentenceWordsAmount * 60) / totalSeconds),

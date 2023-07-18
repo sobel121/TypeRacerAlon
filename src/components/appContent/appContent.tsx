@@ -8,7 +8,6 @@ import React, {
 import {
     getRandomSentenceWords,
     getCurrentWordTodoCharacters,
-    getTodoWords,
 } from "./utils";
 import { getCurrentGameIdFromLocalStorage } from "../../api/localStorageApi";
 import { updateCurrentGameIdInLocalStorage } from "../../api/localStorageApi";
@@ -56,7 +55,7 @@ export default function AppContent() {
     }, []);
 
     const todoWords = useMemo(
-        () => getTodoWords(done.length + 1, sentenceWords.current),
+        () => sentenceWords.current.slice(done.length + 1),
         [done]
     );
 
