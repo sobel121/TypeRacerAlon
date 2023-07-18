@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getLeaderBoardFromLocalStorage } from "./localStorageHandler";
+import { getLeaderBoardFromLocalStorage } from "../../api/localStorageApi";
 import { loadingMessage, errorMessage } from "./strings";
 
 

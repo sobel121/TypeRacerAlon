@@ -13,7 +13,7 @@ import {
 import {
     getCurrentGameIdFromLocalStorage,
     setCurrentGameIdInLocalStorage,
-} from "./localStorageHandler";
+} from "../../api/localStorageApi"
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import Timer from "../timeStatistics";
