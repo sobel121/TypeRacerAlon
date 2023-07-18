@@ -3,8 +3,8 @@ import { getLeaderBoardFromLocalStorage } from "../../api/localStorageApi";
 import { errorMessage } from "./strings";
 
 
-export function useLeaderBoard() { 
-    const { data } = useQuery(['leaderBoard'], () => getLeaderBoardFromLocalStorage(), {
+export function useLeaderBoard(gameId: number) { 
+    const { data } = useQuery([gameId.toString], getLeaderBoardFromLocalStorage, {
         onError: (err) => errorMessage + err,
     });   
                       

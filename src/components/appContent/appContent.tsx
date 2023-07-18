@@ -32,7 +32,7 @@ export default function AppContent() {
         getCurrentGameIdFromLocalStorage()
     );
     const [totalSeconds, setTotalSeconds] = useState(0);
-    const leaderBoard = useLeaderBoard();
+    const leaderBoard = useLeaderBoard(currentGameId);
     const {mutate: updateLeaderBoard} = useUpdateLeaderBoard(createLeaderBoardContender(sentenceWords.current.length, totalSeconds, currentGameId), leaderBoard)
     
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
