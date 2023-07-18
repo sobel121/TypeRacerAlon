@@ -32,7 +32,7 @@ export default function AppContent() {
         getCurrentGameIdFromLocalStorage()
     );
     const [totalSeconds, setTotalSeconds] = useState(0);
-    const {data: leaderBoard} = useLeaderBoard();
+    const leaderBoard = useLeaderBoard();
     const {mutate: setLeaderBoard} = useUpdateLeaderBoard(createLeaderBoardObject(sentenceWords.current, totalSeconds, currentGameId), leaderBoard)
     
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
@@ -73,9 +73,9 @@ export default function AppContent() {
 
     useEffect(() => {        
         if (resetTime === 0) {
-            setLeaderBoard(createLeaderBoardObject(sentenceWords.current, totalSeconds, currentGameId));
             setCurrentGameId((currentId) => currentId + 1);
             setCurrentGameIdInLocalStorage(currentGameId);
+            setLeaderBoard(createLeaderBoardObject(sentenceWords.current, totalSeconds, currentGameId));
         }
     }, [resetTime]);
 

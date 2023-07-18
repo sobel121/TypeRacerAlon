@@ -1,6 +1,6 @@
-import { Contender } from "../useLeaderBoard/types";
+import { Contender } from "./types";
 import { useMutation } from "@tanstack/react-query";
-import { setLeaderBoard } from "../useLeaderBoard/utils";
+import { setLeaderBoard } from "./utils";
 
 export function useUpdateLeaderBoard(newContender: Contender, leaderBoard: Contender[]) {
     return useMutation<Contender[], Error | null, Contender, void>({
