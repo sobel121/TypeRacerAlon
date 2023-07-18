@@ -5,7 +5,9 @@ import { errorMessage } from "./strings";
 
 export function useLeaderBoard(gameId: number) { 
     const { data } = useQuery([gameId.toString], getLeaderBoardFromLocalStorage, {
-        onError: (err) => errorMessage + err,
+        onError: (err) => {
+            throw new Error(errorMessage + err)
+        },
     });   
                       
     return data;
