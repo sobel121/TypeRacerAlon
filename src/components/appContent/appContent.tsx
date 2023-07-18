@@ -10,10 +10,8 @@ import {
     getCurrentWordTodoCharacters,
     getTodoWords,
 } from "./utils";
-import {
-    getCurrentGameIdFromLocalStorage,
-    setCurrentGameIdInLocalStorage,
-} from "../../api/localStorageApi"
+import { getCurrentGameIdFromLocalStorage } from "../../api/localStorageApi/getGameId";
+import { updateCurrentGameIdInLocalStorage } from "../../api/localStorageApi/updateGameId";
 import TargetSentence from "../targetSentence";
 import TypeInput from "../typeInput";
 import Timer from "../timeStatistics";
@@ -74,7 +72,7 @@ export default function AppContent() {
     useEffect(() => {        
         if (resetTime === 0) {
             setCurrentGameId((currentId) => currentId + 1);
-            setCurrentGameIdInLocalStorage(currentGameId);
+            updateCurrentGameIdInLocalStorage(currentGameId);
             updateLeaderBoard(createLeaderBoardContender(sentenceWords.current.length, totalSeconds, currentGameId));
         }
     }, [resetTime]);

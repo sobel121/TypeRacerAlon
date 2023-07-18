@@ -1,0 +1,1 @@
+export const updateCurrentGameIdInLocalStorage = (gameId: number) => localStorage.setItem("currentGameId", JSON.stringify(gameId));

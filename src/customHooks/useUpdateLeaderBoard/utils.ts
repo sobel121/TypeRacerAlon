@@ -1,6 +1,6 @@
 import { Contender } from "./types";
 import { maxScoresAmount } from "./consts";
-import { updateLeaderBoardInLocalStorage } from "../../api/localStorageApi";
+import { updateLeaderBoardInLocalStorage } from "../../api/localStorageApi/updateLeaderBoard";
 
 export const updateLeaderBoard: (leaderBoard: Contender[], newContender: Contender) => Promise<Contender[]> = async (leaderBoard, newContender) => {
     leaderBoard.push(newContender);
