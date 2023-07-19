@@ -4,11 +4,11 @@ import { errorMessage } from "./strings";
 
 
 export function useLeaderBoard(gameId: number) { 
-    const { data } = useQuery([gameId.toString], getLeaderBoardFromLocalStorage, {
-        onError: (err) => {
-            throw new Error(errorMessage + err)
-        },
-    });   
+    const { data, isError, error } = useQuery([gameId.toString()], getLeaderBoardFromLocalStorage);   
+
+    if (isError && error instanceof Error) {
+        alert(errorMessage + error.message);
+    }
                       
     return data;
 }

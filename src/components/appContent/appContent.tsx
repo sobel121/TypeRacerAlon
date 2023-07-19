@@ -3,12 +3,9 @@ import React, {
     useRef,
     useState,
     useCallback,
-    useMemo
+    useMemo,
 } from "react";
-import {
-    getRandomSentenceWords,
-    getCurrentWordTodoCharacters,
-} from "./utils";
+import { getRandomSentenceWords, getCurrentWordTodoCharacters } from "./utils";
 import { getCurrentGameIdFromLocalStorage } from "../../api/localStorageApi";
 import { updateCurrentGameIdInLocalStorage } from "../../api/localStorageApi";
 import TargetSentence from "../targetSentence";
@@ -30,8 +27,22 @@ export default function AppContent() {
     );
     const [totalSeconds, setTotalSeconds] = useState(0);
     const leaderBoard = useLeaderBoard(currentGameId);
-    const {mutate: updateLeaderBoard} = useUpdateLeaderBoard(createLeaderBoardContender(sentenceWords.current.length, totalSeconds, currentGameId), leaderBoard)
-    
+
+    const contender = useMemo(
+        () =>
+            createLeaderBoardContender(
+                sentenceWords.current.length,
+                totalSeconds,
+                currentGameId
+            ),
+        [sentenceWords.current.length, totalSeconds, currentGameId]
+    );
+
+    const { mutate: updateLeaderBoard } = useUpdateLeaderBoard(
+        contender,
+        leaderBoard
+    );
+
     const [currentTargetWordIndex, setCurrentTargetWordIndex] = useState(0);
     const [done, setDone] = useState<string[]>([]);
     const [currentWordDoneCharacters, setCurrentWordDoneCharacters] =
@@ -48,10 +59,9 @@ export default function AppContent() {
             textArea.current.disabled = false;
             textArea.current.value = "";
             textArea.current.focus();
-        }        
-        
-        setResetTime((state) => state === 0 ? 1 : state * -1);
+        }
 
+        setResetTime((state) => (state === 0 ? 1 : state * -1));
     }, []);
 
     const todoWords = useMemo(
@@ -68,11 +78,11 @@ export default function AppContent() {
         [currentWordDoneCharacters, sentenceWords.current]
     );
 
-    useEffect(() => {        
+    useEffect(() => {
         if (resetTime === 0) {
             setCurrentGameId((currentId) => currentId + 1);
             updateCurrentGameIdInLocalStorage(currentGameId);
-            updateLeaderBoard(createLeaderBoardContender(sentenceWords.current.length, totalSeconds, currentGameId));
+            updateLeaderBoard(contender);
         }
     }, [resetTime]);
 
